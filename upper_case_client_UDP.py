@@ -1,11 +1,7 @@
-
-'''  UDP_client.py                                     
-Use the better name for this module: upper_case_client_UDP   
-  
-[STUDENTS FILL IN THE ITEMS BELOW]  
-  STUDENT NAME                                 
-  COURSE NAME and SEMESTER                    
-  DATE                                         
+'''
+  Gary Sidoti and Vincent Nguyen
+  CISC450 - Spring 2016                    
+  4/8/16                                         
   This module will <blah, blah, blah>              
 '''
 
