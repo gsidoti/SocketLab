@@ -1,0 +1,65 @@
+Script started on Sun Mar 13 19:54:48 2016
+[?1034hbash-3.2$ cat uppercase_server_TCP.py[C[C[C[C[C[C[C[C[C[Chostname[Kuname -aifconfiguname -aifconfigp[Kifconfiguname -a
+Darwin Garys-Air.fios-router.home 15.3.0 Darwin Kernel Version 15.3.0: Thu Dec 10 18:40:58 PST 2015; root:xnu-3248.30.4~1/RELEASE_X86_64 x86_64
+bash-3.2$ uname -acat uppercase_server_TCP.py[C[C[C[C[C[C[C[C[C[Chostname[K
+Garys-Air.fios-router.home
+bash-3.2$ hostnameuname -acat uppercase_server_TCP.py_case_server_TCP.py
+'''
+  Gary Sidoti and Vincent Nguyen
+  CISC450 - Spring 2016                    
+  4/8/16                                         
+  This module will <Setup a connection and respond when given a sentence from the client>              
+'''
+
+from socket import *
+
+# STUDENTS: randomize this port number (ideally 49152- 65535, but 1024-65535 will work)
+server_port = 52832
+
+# create TCP listening socket and bind it to the server port
+server_socket = socket(AF_INET,SOCK_STREAM)
+server_socket.bind(('',server_port))
+
+# listen for incoming TCP requests
+server_socket.listen(1)
+print ('The Upper Case Server is running over TCP and listening ... ')
+
+while True:
+    # server accepts incoming request; new socket created on return
+    # this is a blocking call by default
+    connection_socket, addr = server_socket.accept()
+     
+    # read bytes from socket (sent by client)
+    # this is a blocking call by default
+    sentence = connection_socket.recv(1024)
+
+    # output the sentence received from client (converted to a string)
+    print ('Received From Client over TCP: ', sentence.decode())
+	 
+    # convert the sentence to upper case
+    # Note that sentence is still a bytes object rather than a string, but
+    # upper() also works for byte objects
+    uppercase_sentence = sentence.upper()
+	 
+    # send back modified sentence over the TCP connection
+    connection_socket.send(uppercase_sentence)
+
+    # output sentence sent back to client (converted to a string)
+    print ('Sent back to Client over TCP: ', uppercase_sentence.decode())
+	 
+    # close the TCP connection; the listening socket continues listening
+    connection_socket.close()
+bash-3.2$ python3 upper_case_client_[K[K[K[K[K[K[Kserver.[K_TCP.py
+The Upper Case Server is running over TCP and listening ... 
+Received From Client over TCP:  test
+Sent back to Client over TCP:  TEST
+^D^CTraceback (most recent call last):
+  File "upper_case_server_TCP.py", line 24, in <module>
+    connection_socket, addr = server_socket.accept()
+  File "/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/socket.py", line 195, in accept
+    fd, addr = self._accept()
+KeyboardInterrupt
+bash-3.2$ ee[Kxit
+exit
+
+Script done on Sun Mar 13 20:00:20 2016

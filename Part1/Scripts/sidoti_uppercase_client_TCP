@@ -1,0 +1,55 @@
+Script started on Sun Mar 13 20:02:01 2016
+[?1034hbash-3.2$ exitpython3 upper_case_server_TCP.py[C[C[C[C[C[C[C[C[C[C[4Pcat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chostname[Kuname -acat uppercase_server_TCP.py[C[C[C[C[C[C[C[C[C[Cuname -a[K
+Darwin Garys-Air.fios-router.home 15.3.0 Darwin Kernel Version 15.3.0: Thu Dec 10 18:40:58 PST 2015; root:xnu-3248.30.4~1/RELEASE_X86_64 x86_64
+bash-3.2$ uname -a[4Pexitpython3 upper_case_server_TCP.py[C[C[C[C[C[C[C[C[C[C[4Pcat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chostname[K
+Garys-Air.fios-router.home
+bash-3.2$ cat uppercase_client[K[K[K[K[K[K[K[K[K[K[K_case_client_TCP.py
+'''
+  Gary Sidoti and Vincent Nguyen
+  CISC450 - Spring 2016                    
+  4/8/16                                         
+  This module will <Send a sentence to the server and recieve a uppercase response>              
+'''
+
+from socket import *
+
+# STUDENTS - change 'servername' to the domain name of your server or to
+# its IP address.
+server_name = '100.34.188.112'
+
+# STUDENTS - Set this to the port number your server uses!        
+server_port = 52832
+
+# create TCP socket for connecting to remote server.
+client_socket = socket(AF_INET, SOCK_STREAM)
+
+# open the TCP connection
+client_socket.connect((server_name,server_port))
+
+# get user's input
+sentence = input('Input lowercase sentence: ')
+
+# send the user's input to server (must convert to bytes)
+client_socket.send(sentence.encode())
+
+#output what was sent to the server
+print ('Sent to Upper Case Server over TCP: ', sentence)
+
+# get modified line back from server (1KB max)
+# This is a blocking call by default
+modified_sentence = client_socket.recv(1024)
+
+# output the modified user's line (converted to a string)
+print ('Received from Upper Case Server over TCP: ', modified_sentence.decode())
+
+# close the TCP connection
+client_socket.close()bash-3.2$ cat upper_case_client_TCP.py[C[C[C[C[C[C[C[C[C[Chostname[Kcat upper_case_client_TCP.py[C[C[C[C[C[C[C[C[C[C[C[C[C[K upper_case_client_TCP.py[C[C[C[C[C[C[C[C[C[Chostname[Kcat upper_case_client_TCP.py[C[C[C[C[C[C[C[C[C[C[C[C[C[K upper_case_client_TCP.py[C[C[C[C[C[C[C[C[C[Chostname[Kuname -a[4Pexitpython3 upper_case_server_TCP.py[C[C[C[C[C[C[C[C[C[C[4Pcat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chostname[Kuname -ahostnameuname -ahostnamecat upper_case_server_TCP.py[C[C[C[C[C[C[C[C[C[C[4@python3[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cexit[Kuname -ahostnamecat upper_case_client_TCP.py[C[C[C[C[C[C[C[C[C[C[C[C[C[Kp[K[K[K[K
+bash-3.2$ python3 uppercase[K[K[K[K_case_client_TCP.py
+Input lowercase sentence: hello
+Sent to Upper Case Server over TCP:  hello
+Received from Upper Case Server over TCP:  HELLO
+bash-3.2$ 
+bash-3.2$ exit
+exit
+
+Script done on Sun Mar 13 20:04:00 2016

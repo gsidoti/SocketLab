@@ -1,0 +1,54 @@
+Script started on Sun 13 Mar 2016 08:08:39 PM EDT
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m uname -a
+Linux mint 3.13.0-37-generic #64-Ubuntu SMP Mon Sep 22 21:28:38 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m hostname cat[K[K[K[K
+mint
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m cat upper_case_server_UDP.py 
+'''
+  Gary Sidoti and Vincent Nguyen
+  CISC450 - Spring 2016                    
+  4/8/16                                         
+  This module will <blah, blah, blah>              
+'''
+
+from socket import *
+
+# STUDENTS: randomize this port number (ideally 49152- 65535, but 1024-65535 will work)
+# done
+server_port = 52832
+
+# create UDP listening socket and bind it to the server port
+server_socket = socket(AF_INET, SOCK_DGRAM)
+server_socket.bind(('', server_port))
+print('The Upper Case Server is running over UDP and ready to receive ... ')
+
+while True:
+    # read client's message and client's IP address and port number (1KB max)
+    # this is a blocking call by default
+    message, client_address = server_socket.recvfrom(1024)
+
+    # output the sentence received from client (converted to a string)
+    print('Received from Client over UDP: ', message.decode())
+	
+    # convert the sentence to upper case
+    # Note that sentence is still a bytes object rather than a string, but
+    # upper() also works for byte objects
+    modified_message = message.upper()
+	
+    # send back modified sentence over UDP
+    # Note that this requirest the client's address info
+    server_socket.sendto(modified_message, client_address)
+ 
+    # output message sent back to client (converted to a string)
+    print('Sent back to Client over UDP: ', modified_message.decode())
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m python3 upper_case_server_UDP.py 
+The Upper Case Server is running over UDP and ready to receive ... 
+Received from Client over UDP:  hello
+Sent back to Client over UDP:  HELLO
+^CTraceback (most recent call last):
+  File "upper_case_server_UDP.py", line 22, in <module>
+    message, client_address = server_socket.recvfrom(1024)
+KeyboardInterrupt
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m exit
+
+Script done on Sun 13 Mar 2016 08:09:32 PM EDT

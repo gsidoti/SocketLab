@@ -1,0 +1,50 @@
+Script started on Sun 13 Mar 2016 08:09:47 PM EDT
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m uname -a
+Linux mint 3.13.0-37-generic #64-Ubuntu SMP Mon Sep 22 21:28:38 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m hostname
+mint
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m cat upper_case_client_UDP.py 
+'''
+  Gary Sidoti and Vincent Nguyen
+  CISC450 - Spring 2016                    
+  4/8/16                                         
+  This module will <blah, blah, blah>              
+'''
+
+from socket import *
+
+# STUDENTS - change 'servername' to the domain name of your server or to
+# its IP address.
+server_name = '100.34.10.205'
+
+# STUDENTS - Set this to the port number your server uses!        
+server_port = 52832
+
+# create UDP socket
+client_socket = socket(AF_INET, SOCK_DGRAM)
+
+# get user's input
+message = input('Input lowercase sentence: ')
+
+# send the user's input to server (converted to bytes)
+client_socket.sendto(message.encode(), (server_name, server_port))
+
+# output what was sent to the server
+print ('Sent to Upper Case Server over UDP: ', message)
+
+# receive modified sentence from server (1KB max)
+# this is a blocking call by default
+modified_message, server_address = client_socket.recvfrom(1024)
+
+# output modified sentence (converted to bytes)
+print ('Received from Server over UDP: ', modified_message.decode())
+
+# close the UDP socket
+client_socket.close()
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m python3 upper_case_client_UDP.py 
+Input lowercase sentence: test
+Sent to Upper Case Server over UDP:  test
+Received from Server over UDP:  TEST
+[01;32mvincent@mint[01;34m ~/CISC450 $[00m exit
+
+Script done on Sun 13 Mar 2016 08:10:38 PM EDT

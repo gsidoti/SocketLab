@@ -1,0 +1,54 @@
+Script started on Sun Mar 13 20:09:53 2016
+[?1034hbash-3.2$ exitpython3 upper_case_client_UDP.py[C[C[C[C[C[C[C[C[C[C[4Pcat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chostname[Kuname -a
+Darwin Garys-Air.fios-router.home 15.3.0 Darwin Kernel Version 15.3.0: Thu Dec 10 18:40:58 PST 2015; root:xnu-3248.30.4~1/RELEASE_X86_64 x86_64
+bash-3.2$ uname -a[4Pexitpython3 upper_case_client_UDP.py[C[C[C[C[C[C[C[C[C[C[4Pcat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chostname[K
+Garys-Air.fios-router.home
+bash-3.2$ hostnameuname -a[4Pexitpython3 upper_case_client_UDP.py[C[C[C[C[C[C[C[C[C[C[4Pcat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P_UDP.py[1P_UDP.py[1P_UDP.py[1P_UDP.py[1P_UDP.py[1P_UDP.pys_UDP.pye_UDP.pyr_UDP.pyv_UDP.pye_UDP.pyr_UDP.py[C[C[C[C[C[C[C
+'''
+  Gary Sidoti and Vincent Nguyen
+  CISC450 - Spring 2016                    
+  4/8/16                                         
+  This module will <blah, blah, blah>              
+'''
+
+from socket import *
+
+# STUDENTS: randomize this port number (ideally 49152- 65535, but 1024-65535 will work)
+# done
+server_port = 52832
+
+# create UDP listening socket and bind it to the server port
+server_socket = socket(AF_INET, SOCK_DGRAM)
+server_socket.bind(('', server_port))
+print('The Upper Case Server is running over UDP and ready to receive ... ')
+
+while True:
+    # read client's message and client's IP address and port number (1KB max)
+    # this is a blocking call by default
+    message, client_address = server_socket.recvfrom(1024)
+
+    # output the sentence received from client (converted to a string)
+    print('Received from Client over UDP: ', message.decode())
+	
+    # convert the sentence to upper case
+    # Note that sentence is still a bytes object rather than a string, but
+    # upper() also works for byte objects
+    modified_message = message.upper()
+	
+    # send back modified sentence over UDP
+    # Note that this requirest the client's address info
+    server_socket.sendto(modified_message, client_address)
+ 
+    # output message sent back to client (converted to a string)
+    print('Sent back to Client over UDP: ', modified_message.decode())
+bash-3.2$ cat upper_case_server_UDP.py[C[C[C[C[C[C[C[C[C[Chostname[Kuname -a[4Pexitpython3 upper_case_client_UDP.py[1P_UDP.py[1P_UDP.py[1P_UDP.py[1P_UDP.py[1P_UDP.py[1P_UDP.pys_UDP.pye_UDP.pyr_UDP.pyv_UDP.pye_UDP.pyr_UDP.pyr_UDP.py[1P_UDP.py[C[C[C[C
+The Upper Case Server is running over UDP and ready to receive ... 
+Received from Client over UDP:  test
+Sent back to Client over UDP:  TEST
+^CTraceback (most recent call last):
+  File "upper_case_server_UDP.py", line 22, in <module>
+    message, client_address = server_socket.recvfrom(1024)
+KeyboardInterrupt
+bash-3.2$ exit
+
+Script done on Sun Mar 13 20:10:46 2016
